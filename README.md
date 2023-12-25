@@ -10,7 +10,7 @@ npm install
 
 ### 1. Configure
 
-Copy `config.json.example` to `config.json` and edit it.
+Copy `config.example.json` to `config.json` and edit it.
 
 ### 2. Run
 
