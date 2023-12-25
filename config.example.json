@@ -1,0 +1,17 @@
+{
+    "servers": [
+      {
+        "name": "super server",
+        "url": "http://192.168.0.100:8088",
+        "username": "user1",
+        "password": "password1"
+      },
+      {
+        "name": "example.server.com",
+        "url": "https://example.server.com",
+        "username": "user2",
+        "password": "password2"
+      }
+    ]
+  }
+  
