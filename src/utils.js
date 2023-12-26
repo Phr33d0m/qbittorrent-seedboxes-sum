@@ -56,3 +56,24 @@ export async function saveCookie(serverName, cookie) {
         )
     }
 }
+
+export async function deleteCookie(serverName) {
+    try {
+        if (!serverName) {
+            throw new Error('Server name is undefined')
+        }
+        const sanitizedServerName = sanitizeFilename(serverName)
+        const cookiePath = path.resolve(
+            cookiesPath,
+            `${sanitizedServerName}.cookie`
+        )
+        await fs.unlink(cookiePath)
+        logger.debug(chalk.green(`Cookie deleted for ${sanitizedServerName}`))
+    } catch (error) {
+        logger.error(
+            chalk.red(
+                `Error deleting cookie for ${serverName}: ${error.message}`
+            )
+        )
+    }
+}

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { readCookie, saveCookie } from './utils.js'
+import { deleteCookie, readCookie, saveCookie } from './utils.js'
 import { logger } from './logger.js'
 import chalk from 'chalk'
 import figures from 'figures'
@@ -40,7 +40,14 @@ async function loginToServer(server) {
     }
 }
 
-export async function fetchTorrentsFromServer(server) {
+export async function fetchTorrentsFromServer(
+    server,
+    forceFreshCookie = false
+) {
+    if (forceFreshCookie) {
+        await deleteCookie(server.name)
+    }
+
     const cookie = await loginToServer(server)
     if (!cookie) return []
 
@@ -68,6 +75,11 @@ export async function fetchTorrentsFromServer(server) {
                 `${figures.cross} Error fetching from ${server.url}: ${error}`
             )
         )
+
+        if (!forceFreshCookie) {
+            return fetchTorrentsFromServer(server, true)
+        }
+
         return []
     }
 }
